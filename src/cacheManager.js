@@ -9,8 +9,8 @@ const QUEUE = 'lur-cache';
 
 class CacheManger {
 
-  constructor() {
-    connect(this.recieve).then(data=>{
+  constructor(url) {
+    connect(url, this.recieve).then(data=>{
       this.channel = data.channel;
     });
   }

@@ -2,7 +2,7 @@ const CacheManger = require('./cacheManager.js');
 
 class Cache {
 
-  constructor(limit, maxAge, stale) {
+  constructor(limit, maxAge, stale, brokerURL) {
     this.size = 0;
     this.limit = parseInt(limit) ? limit : Infinity;
     this.maxAge = parseInt(maxAge) ? maxAge : Infinity;
@@ -10,7 +10,7 @@ class Cache {
     this.hashMap = {};
     this.head = null;
     this.tail = null;
-    this.CacheManger = new CacheManger();
+    this.CacheManger = new CacheManger(brokerURL);
   }
 
   setHead(node) {
