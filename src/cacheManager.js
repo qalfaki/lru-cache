@@ -18,20 +18,22 @@ class CacheManger {
       connect(url, cb).then(data=>{
         this.channel = data.channel;
         this.queue = data.QUEUE;
-        resolve()
+        resolve({c: this.channel, q:this.QUEUE})
       });
     })
   }
   publish(msg) {
     // send message to queue
     msg = JSON.stringify(msg);
-    if (!this.channel) {
-      return startConnection(this.url).then(()=>{
-        this.channel.sendToQueue(this.queue, Buffer.from(msg));
+    try {
+      this.channel.sendToQueue(this.queue, Buffer.from(msg));
+    }
+    catch (err) {
+      this.startConnection(this.url, this.recieve).then(d=>{
+        d.c.sendToQueue(d.q, Buffer.from(msg));
         console.log(" [x] Sent %s", msg);
       });
     }
-    this.channel.sendToQueue(this.queue, Buffer.from(msg));
     console.log(" [x] Sent %s", msg);
   }
   recieve(data) {
