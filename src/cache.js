@@ -24,7 +24,6 @@ class Cache {
       }
       this.size += 1;
       this.hashMap[node.data.key] = node;
-      this.CacheManger.publish(this.hashMap)
   }
 
   set(key, value, maxAge) {
@@ -37,6 +36,8 @@ class Cache {
         this.tail.next = null;
     }
     this.setHead(node);
+    this.CacheManger.publish({action: 'set', key, value})
+
   }
 
   remove(node) {
@@ -52,7 +53,7 @@ class Cache {
     }
     delete this.hashMap[node.getKey()];
     this.size -= 1;
-    this.CacheManger.publish(this.hashMap)
+    this.CacheManger.publish({action: 'remove', node})
   }
 
   get(key) {
@@ -82,7 +83,7 @@ class Cache {
     this.hashMap = {};
     this.head = null;
     this.tail = null;
-    this.CacheManger.publish(this.hashMap)
+    this.CacheManger.publish({action: 'reset'})
   }
 
   toArray() {
