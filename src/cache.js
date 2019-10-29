@@ -2,13 +2,13 @@ const CacheManger = require('./cacheManager.js');
 
 class Cache extends CacheManger {
 
-  constructor(limit, maxAge, stale, brokerURL) {
+  constructor(limit=Infinity, maxAge=Infinity, stale=false, hashMap={}, brokerURL) {
     super(brokerURL)
     this.size = 0;
-    this.limit = parseInt(limit) ? limit : Infinity;
-    this.maxAge = parseInt(maxAge) ? maxAge : Infinity;
-    this.stale = typeof stale === 'boolean' ? stale : false;
-    this.hashMap = {};
+    this.limit = limit;
+    this.maxAge = maxAge;
+    this.stale = stale;
+    this.hashMap = hashMap;
     this.head = null;
     this.tail = null;
   }
@@ -37,10 +37,10 @@ class Cache extends CacheManger {
     }
     this.setHead(node);
     this.publish({action: 'set', data: {key, value}})
-
   }
 
-  remove(node) {
+  remove(key) {
+    let node = this.hashMap[key];
     if (node.previous !== null) {
       node.previous.next = node.next;
     } else {
@@ -51,9 +51,9 @@ class Cache extends CacheManger {
     } else {
       this.tail = node.previous;
     }
-    delete this.hashMap[node.getKey()];
+    delete this.hashMap[key];
     this.size -= 1;
-    this.publish({action: 'remove', data: {node}})
+    this.publish({action: 'remove', data: {key}})
   }
 
   get(key) {
@@ -63,11 +63,11 @@ class Cache extends CacheManger {
       const nodeMaxAge = oldNode.getMaxAge();
       const maxAge = parseInt(nodeMaxAge) ? nodeMaxAge : this.maxAge;
       if (Date.now() >= oldNode.getExpiry()) {
-        this.remove(oldNode);
+        this.remove(key);
         return this.stale ? oldNode.getValue() : null;
       }
       const newNode = new Node(key, value, maxAge, Date.now() + maxAge);
-      this.remove(oldNode);
+      this.remove(key);
       this.setHead(newNode);
       return value
     }
@@ -118,8 +118,7 @@ class Cache extends CacheManger {
   }
 
   delete(key) {
-    const node = this.hashMap[key];
-    this.remove(node)
+    this.remove(key)
   }
 }
 
