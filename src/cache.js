@@ -1,8 +1,9 @@
 const CacheManger = require('./cacheManager.js');
 
-class Cache {
+class Cache extends CacheManger {
 
   constructor(limit, maxAge, stale, brokerURL) {
+    super(brokerURL)
     this.size = 0;
     this.limit = parseInt(limit) ? limit : Infinity;
     this.maxAge = parseInt(maxAge) ? maxAge : Infinity;
@@ -10,7 +11,6 @@ class Cache {
     this.hashMap = {};
     this.head = null;
     this.tail = null;
-    this.CacheManger = new CacheManger(brokerURL);
   }
 
   setHead(node) {
@@ -36,7 +36,7 @@ class Cache {
         this.tail.next = null;
     }
     this.setHead(node);
-    this.CacheManger.publish({action: 'set', key, value})
+    this.publish({action: 'set', data: {key, value}})
 
   }
 
@@ -53,7 +53,7 @@ class Cache {
     }
     delete this.hashMap[node.getKey()];
     this.size -= 1;
-    this.CacheManger.publish({action: 'remove', node})
+    this.publish({action: 'remove', data: {node}})
   }
 
   get(key) {
@@ -83,7 +83,7 @@ class Cache {
     this.hashMap = {};
     this.head = null;
     this.tail = null;
-    this.CacheManger.publish({action: 'reset'})
+    this.publish({action: 'reset'})
   }
 
   toArray() {
