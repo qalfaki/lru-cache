@@ -5,20 +5,19 @@
 */
 
 const connect = require('./connect.js');
-const QUEUE = 'lur-cache';
 
 class CacheManger {
 
   constructor(url) {
-    connect(url, this.recieve).then(data=>{
-      this.channel = data.channel;
-    });
+      this.url = url;
+      this.startConnection(url, this.recieve)
   }
-  reconnect() {
-    console.log('reconnecting...')
+  startConnection(url, cb) {
+    console.log('connecting...')
     return new Promise((resolve, reject)=>{
-      connect().then(data=>{
+      connect(url, cb).then(data=>{
         this.channel = data.channel;
+        this.queue = data.QUEUE;
         resolve()
       });
     })
@@ -27,12 +26,12 @@ class CacheManger {
     // send message to queue
     msg = JSON.stringify(msg);
     if (!this.channel) {
-      return reconnect().then(()=>{
-        this.channel.sendToQueue(QUEUE, Buffer.from(msg));
+      return startConnection(this.url).then(()=>{
+        this.channel.sendToQueue(this.queue, Buffer.from(msg));
         console.log(" [x] Sent %s", msg);
       });
     }
-    this.channel.sendToQueue(QUEUE, Buffer.from(msg));
+    this.channel.sendToQueue(this.queue, Buffer.from(msg));
     console.log(" [x] Sent %s", msg);
   }
   recieve(data) {
