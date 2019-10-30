@@ -7,13 +7,13 @@ const connect = require('./connect.js');
 
 class CacheManger {
 
-  constructor() {
-      this.startConnection(this.recieve.bind(this))
+  constructor(URL) {
+      this.startConnection(URL, this.recieve.bind(this))
   }
-  startConnection(cb) {
+  startConnection(URL, cb) {
     console.log('connecting...')
     return new Promise((resolve, reject)=>{
-      connect(cb).then(data=>{
+      connect(URL, cb).then(data=>{
         this.channel = data.channel;
         this.queue = data.QUEUE;
         resolve({c: this.channel, q: this.QUEUE})
@@ -34,21 +34,21 @@ class CacheManger {
     }
   }
   recieve(msg) {
-    msg = JSON.parse(msg.content.toString())
-    let action = msg.action;
-    let data = msg.data;
-    // TODO: find a better way to identify own messages
-    if (action == 'set' && this.hashMap[data.key]) {
-      return;
-    }
-    else if (action == 'remove' && !this.hashMap[data.key]) {
-      return
-    }
-    else if (action == 'reset' && !Object.keys(this.hashMap).length) {
-      return
-    }
-    this[action](data.key, data.value, data.maxAge);
-
+    //msg = JSON.parse(msg.content.toString())
+    //let action = msg.action;
+    //let data = msg.data;
+    //// TODO: find a better way to identify own messages
+    //if (action == 'set' && this.hashMap[data.key]) {
+    //  return
+    //}
+    //// TODO: fix bug. it remove re-added node
+    //else if (action == 'remove' && !this.hashMap[data.key]) {
+    //  return
+    //}
+    //else if (action == 'reset' && !Object.keys(this.hashMap).length) {
+    //  return
+    //}
+    //this[action](data.key, data.value, data.maxAge);
   }
 }
 

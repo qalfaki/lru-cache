@@ -2,8 +2,8 @@ const CacheManger = require('./cacheManager.js');
 
 class Cache extends CacheManger {
 
-  constructor(maxAge=Infinity) {
-    super()
+  constructor(brokerURL=null, maxAge=Infinity) {
+    super(brokerURL)
     this.maxAge = maxAge;
     this.hashMap = {};
     this.head = null;
