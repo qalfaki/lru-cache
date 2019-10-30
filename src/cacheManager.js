@@ -3,7 +3,6 @@
    - commuincation between nodes when a cache changes
    - listen to change events and delegate to Cache class to update in-memory cache
 */
-let c = 1;
 const connect = require('./connect.js');
 
 class CacheManger {
@@ -17,7 +16,7 @@ class CacheManger {
       connect(cb).then(data=>{
         this.channel = data.channel;
         this.queue = data.QUEUE;
-        resolve({c: this.channel, q:this.QUEUE})
+        resolve({c: this.channel, q: this.QUEUE})
       });
     })
   }
@@ -38,11 +37,18 @@ class CacheManger {
     msg = JSON.parse(msg.content.toString())
     let action = msg.action;
     let data = msg.data;
-    console.log('the counter ', c)
-    if (c !== 4) {
-      c ++
-      this[action](data.key, data.value, data.maxAge);
+    // TODO: find a better way to identify own messages
+    if (action == 'set' && this.hashMap[data.key]) {
+      return;
     }
+    else if (action == 'remove' && !this.hashMap[data.key]) {
+      return
+    }
+    else if (action == 'reset' && !Object.keys(this.hashMap).length) {
+      return
+    }
+    this[action](data.key, data.value, data.maxAge);
+
   }
 }
 

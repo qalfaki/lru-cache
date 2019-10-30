@@ -24,9 +24,9 @@ const connect = (cb) => {
           // consume queue
           cb(msg)
         }, {
-          noAck: true
+          noAck: true,
         });
-        // publisher class will use this to send messages
+        // CacheManger will use this to send messages
         resolve({channel, QUEUE})
       });
     });
