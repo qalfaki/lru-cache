@@ -4,7 +4,7 @@
   "description": "rpc lur library",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "node jasmine.js"
   },
   "author": "Qusai Alfaki",
   "license": "ISC",
@@ -14,5 +14,8 @@
     "dotenv": "^8.2.0",
     "jasmine": "^3.5.0",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "jasmine-console-reporter": "^3.1.0"
   }
 }
