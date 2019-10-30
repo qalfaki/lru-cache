@@ -9,7 +9,7 @@ class Cache extends CacheManger {
     this.head = null;
     this.tail = null;
     // clear the cache once its expires
-    setTimeout(()=>this.reset(), this.maxAge === Infinity ? 0: this.maxAge);
+    setTimeout(()=>this.reset(), this.maxAge === Infinity ? 0: this.maxAge*3600000);
   }
 
   set(key, value) {

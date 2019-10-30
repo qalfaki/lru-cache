@@ -47,3 +47,17 @@ cache.peek('a') //returns 1 but doesnt resets the order
 
 let cache = new Cache(brokerURL, 3000);
 ```
+### API
+##### cache(brokerURL, expireIn[hours])
+
+`brokerURL`
+
+Type: 'string'
+
+rabbitmq broker url
+
+`expireIn`
+
+Type: `number`
+
+default: `Infinity`
