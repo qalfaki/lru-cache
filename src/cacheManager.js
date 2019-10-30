@@ -4,6 +4,8 @@
    - listen to change events and delegate to Cache class to update in-memory cache
 */
 const connect = require('./connect.js');
+const uuidv4 = require('uuid/v4');
+const PUBID = uuidv4();
 
 class CacheManger {
 
@@ -22,7 +24,7 @@ class CacheManger {
   }
   publish(msg) {
     // send message to queue
-    msg = JSON.stringify(msg);
+    msg = JSON.stringify(Object.assign(msg, {id: PUBID}));
     try {
       this.channel.sendToQueue(this.queue, Buffer.from(msg));
     }
@@ -34,21 +36,14 @@ class CacheManger {
     }
   }
   recieve(msg) {
-    //msg = JSON.parse(msg.content.toString())
-    //let action = msg.action;
-    //let data = msg.data;
-    //// TODO: find a better way to identify own messages
-    //if (action == 'set' && this.hashMap[data.key]) {
-    //  return
-    //}
-    //// TODO: fix bug. it remove re-added node
-    //else if (action == 'remove' && !this.hashMap[data.key]) {
-    //  return
-    //}
-    //else if (action == 'reset' && !Object.keys(this.hashMap).length) {
-    //  return
-    //}
-    //this[action](data.key, data.value, data.maxAge);
+    msg = JSON.parse(msg.content.toString())
+    let action = msg.action;
+    let data = msg.data;
+
+    // prevent updating cache with own messages
+    if (msg.id !== PUBID) {
+        this[action](data.key, data.value);
+    }
   }
 }
 

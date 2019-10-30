@@ -1,6 +1,8 @@
+const uuidv4 = require('uuid/v4');
 const CacheManger = require('./cacheManager.js');
 
 class Cache extends CacheManger {
+
 
   constructor(brokerURL=null, maxAge=Infinity) {
     super(brokerURL)

@@ -43,9 +43,9 @@ cache.peek('a') //returns 1 but doesnt resets the order
   { key: 'b', value: 2 } ]
 */
 
-//Initialize Cache that expires in 3 seconds
+//Initialize Cache that expires in 3 hours
 
-let cache = new Cache(brokerURL, 3000);
+let cache = new Cache(brokerURL, 3);
 ```
 ### API
 ##### cache(brokerURL, expireIn[hours])
