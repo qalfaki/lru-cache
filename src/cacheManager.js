@@ -8,14 +8,13 @@ const connect = require('./connect.js');
 
 class CacheManger {
 
-  constructor(url) {
-      this.url = url;
-      this.startConnection(url, this.recieve.bind(this))
+  constructor() {
+      this.startConnection(this.recieve.bind(this))
   }
-  startConnection(url, cb) {
+  startConnection(cb) {
     console.log('connecting...')
     return new Promise((resolve, reject)=>{
-      connect(url, cb).then(data=>{
+      connect(cb).then(data=>{
         this.channel = data.channel;
         this.queue = data.QUEUE;
         resolve({c: this.channel, q:this.QUEUE})
@@ -36,7 +35,6 @@ class CacheManger {
     }
   }
   recieve(msg) {
-    console.log('this. channel ', this.channel);
     msg = JSON.parse(msg.content.toString())
     let action = msg.action;
     let data = msg.data;

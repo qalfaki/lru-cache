@@ -2,8 +2,8 @@ const CacheManger = require('./cacheManager.js');
 
 class Cache extends CacheManger {
 
-  constructor(limit=Infinity, maxAge=Infinity, stale=false, hashMap={}, brokerURL) {
-    super(brokerURL)
+  constructor(limit=Infinity, maxAge=Infinity, stale=false, hashMap={}) {
+    super()
     this.size = 0;
     this.limit = limit;
     this.maxAge = maxAge;
@@ -24,6 +24,10 @@ class Cache extends CacheManger {
       }
       this.size += 1;
       this.hashMap[node.data.key] = node;
+  }
+
+  setCache(cache) {
+    //TODO: implement
   }
 
   set(key, value, maxAge) {
@@ -127,15 +131,15 @@ class Cache extends CacheManger {
 
 class Node {
 
-  constructor(key, value, maxAge, expires) {
+  constructor(key, value, maxAge=Infinity, expires=Infinity) {
     if ([key, value].includes(undefined))
       throw new Error(`${[key, value].indexOf(undefined) == 0 ? 'key': 'value'} not provided`);
 
     this.data = {key, value};
     this.previous = null;
     this.next = null;
-    this.maxAge = typeof maxAge === 'number' ? maxAge : Infinity;
-    this.expires = typeof expires === 'number' ? expires : Infinity;
+    this.maxAge = maxAge;
+    this.expires = Infinity;
   }
 
   getValue() {
