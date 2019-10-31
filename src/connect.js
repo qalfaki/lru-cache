@@ -4,15 +4,13 @@ const BROKER_URL = process.env.BROKER_URL;
 
 const connect = (URL=BROKER_URL, cb) => {
   return new Promise((resolve, reject) => {
-    AMQP.connect(URL, function(error0, connection) {
-      if (error0) {
-        reject(error0)
-        throw error0;
-      }
-      connection.createChannel(function(error1, channel) {
-        if (error1) {
-          reject(error1)
-          throw error1;
+    AMQP.connect(URL, function(err, connection) {
+      if (err)
+        return reject(err);
+
+      connection.createChannel(function(err, channel) {
+        if (err) {
+          return reject(err)
         }
         channel.assertQueue(QUEUE, {
           durable: false
@@ -31,7 +29,7 @@ const connect = (URL=BROKER_URL, cb) => {
         resolve({channel, QUEUE})
       });
     });
-  }).catch(err=>console.log(err));
+  });
 };
 
 module.exports = connect

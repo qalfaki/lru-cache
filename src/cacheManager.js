@@ -19,6 +19,8 @@ class CacheManger {
         this.channel = data.channel;
         this.queue = data.QUEUE;
         resolve({c: this.channel, q: this.QUEUE})
+      }).catch(err=>{
+          throw `could not connect to rabbitmq!.\n check broker URL and make sure the server is running \n ${err}`
       });
     })
   }
