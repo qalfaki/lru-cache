@@ -1,12 +1,27 @@
 {
-  "name": "rpc-lur",
+  "name": "distributed-lru-cache",
   "version": "1.0.0",
-  "description": "rpc lur library",
+  "description": "LRU distributed cache.",
+  "keywords": [
+    "lru",
+    "cache",
+    "distributed",
+    "rabbitmq"
+  ],
+  "homepage": "https://github.com/qalfaki",
+  "bugs": {
+    "url": "https://github.com/qalfaki/lru-cache/issues",
+    "email": "qusai.alfaki@gmail.com"
+  },
   "main": "index.js",
   "scripts": {
     "test": "node jasmine.js"
   },
-  "author": "Qusai Alfaki",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qalfaki/lru-cache.git"
+  },
+  "author": "Qusai Alfaki <qusai.alfaki@gmail.com> (http://qalfaki.github.io/q)",
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.5.5",
