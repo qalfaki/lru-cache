@@ -1,7 +1,7 @@
 {
   "name": "distributed-lru-cache",
-  "version": "1.0.0",
-  "description": "LRU distributed cache.",
+  "version": "1.2.0",
+  "description": "LRU distributed cache that uses messging system to keep cache updated in all instances of the software implementing the module.",
   "keywords": [
     "lru",
     "cache",
@@ -13,7 +13,7 @@
     "url": "https://github.com/qalfaki/lru-cache/issues",
     "email": "qusai.alfaki@gmail.com"
   },
-  "main": "index.js",
+  "main": "src/cache.js",
   "scripts": {
     "test": "node jasmine.js"
   },

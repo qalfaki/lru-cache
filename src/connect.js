@@ -2,7 +2,6 @@ const AMQP = require('amqplib/callback_api');
 const QUEUE = 'lur-cache';
 
 const connect = (URL, cb) => {
-  console.log('the url ', URL)
   return new Promise((resolve, reject) => {
     AMQP.connect(URL, function(err, connection) {
       if (err)
