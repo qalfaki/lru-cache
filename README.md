@@ -8,12 +8,17 @@
 
 ![alt
 text](https://lh3.googleusercontent.com/86PIBMg1vBtW5o06hXV3YD4i65Z54x0YxdVJO7cCf0IqJw8sTo60SKv6Jr-Epv7gOqAxkTFCBw8CUPVteiQA-6it7ueCGssgNzNadzEhxGv_2btlV-28omnXEVuAMRBfv4MMgzjpkLvRiHndxYtbENfBqEXDsgHscUJv973CC4gouQBwudjwFl18DkPHBu5nRvxg4Ky3TiQisn1Qz71B-38TDyCLyGj3Bu1CFZnMvvqiZGgjMu-P8nZP0rHlqp0trhiHrefTuUvlzy2sVdgMDDCsJzKzJzzhjq-R9J7kR2mj7MD9uvXwKKJ0pTwtK-cU12u_Q-fomEJU68gTbXVEx-VMbhBxZkSEFmqfR2sJfduhYoAhKuJv26DvIbZbGWUqbDzOU03BTjldkHuuXe29MAk2r6wLo_nMXfBUCvn5FVggmjjDNxl4y76aW6XCnYwp5vIZAcLBbgNYVELYU9YK6JoPlZf0oWAbW7mKQLWLDrdM3c8roNXI8FTXfxYwMXB5dlK1yS5Ra4r5yo2Mok0_QqN31YWYbb6lgIIMnaKSQdPwJPru1vS6b7veGAwU5kmO33GLsLIPOJDTCsUu90FqiCiG9kPxCG1fu4SlDSV_ghwC8r020LRZr3Ydo51EFDqXW18JtcxGLEWdj_ODsF9xzRSkpahlcBIFntPTuvHYTltZvrzWwBKJTg=w957-h801-no)
+### Project Status
+
+#### Experimental!
+* PRs and Ideas are highly welcomed!
+
 #### usage
 
 ```
 const Cache = require('disributed-lru-cache');
 
-//distributed lru cache uses rabbitmq for sync cache acrose  different instances
+//distributed lru cache uses rabbitmq for sync cache across  different instances
 
 let cache = new Cache(brokerURL); // cache instance
 
