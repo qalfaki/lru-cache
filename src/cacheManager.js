@@ -4,8 +4,6 @@
    - listen to change events and delegate to Cache class to update in-memory cache
 */
 const connect = require('./connect.js');
-const uuidv4 = require('uuid/v4');
-const PUBID = uuidv4();
 
 class CacheManger {
 
@@ -19,9 +17,7 @@ class CacheManger {
         this.channel = data.channel;
         this.queue = data.QUEUE;
         resolve({c: this.channel, q: this.QUEUE})
-      }).catch(err=>{
-          throw `could not connect to rabbitmq!.\n check broker URL and make sure the server is running \n ${err}`
-      });
+      })
     })
   }
   publish(msg) {
@@ -32,7 +28,7 @@ class CacheManger {
     }
     catch (err) {
       this.startConnection(this.url, this.recieve.bind(this)).then(d=>{
-        d.c.sendToQueue(d.q, Buffer.from(msg));
+        d.channel.sendToQueue(d.queue, Buffer.from(msg));
         console.log(" [x] Sent %s", msg);
       });
     }
@@ -41,11 +37,7 @@ class CacheManger {
     msg = JSON.parse(msg.content.toString())
     let action = msg.action;
     let data = msg.data;
-
-    // prevent updating cache with own messages
-    if (msg.id !== PUBID) {
-        this[action](data.key, data.value);
-    }
+    this[action](data.key, data.value);
   }
 }
 
