@@ -6,7 +6,7 @@
 2. real-time read/write
 4. cache expires
 
-![system design diagram](https://lh3.googleusercontent.com/_OGkY8qcCa1lcO6QGz4m8WEEzwHu9FdQEpH1UR3IiiZgJnHJH4Q9W3_Fgt3tIY9Oh3x9BnCwxowNL0BVPKW7DaNRvEg62g8DpOetfYB1SmBm7Ds0d1nH8ndJc6udJBKV6AlxUigXTuO9UHyaeSiviiiu8Va0Aouir4dOg1Pk7Hxdpsa08HLVMyct3JrOl0QyKgKWoTzg7oOJ-P4X0fsvrhuxsraEnPbHcWQWooICK9ELWmSjfRjUiKm8nOe4mG6uwwntAJJ14eGILEbdp8XLJYA-K49JiPCemXfyeyB9x-bqyMNAYawR425021HnNd1pffTkpxlvs2kmaPefBv2WVghQCYddHdYl_pyKI6pDWy6OWh6PhpcNTywz20zi_Q1J1JeLDSYYWCFTsxxOyT2wh9v0kLX7t9b3fmHwPWhsQmcukG27YUzbr4YjJy0gmm_q7z4tS4N-8rWDwF8KLjMj1WPvdKcG1L0je54vaNxd24xQoUGFvRGvwbbHw4RJ5FGqIlCqFbIHks1DmTw2fxtxxvt7HXh-nIWs9AKzI4keegbVZS3mw0BRKuTeJn2QelOEEuojWwzkgC8djoxzzE58KgINPkzZp3zw71G_YGz9mjkV28hWtHYV5PM=s957-w957-h801-no)
+![Geo-distributed-lru-cache-1.png](https://i.postimg.cc/X7sn8nmw/Geo-distributed-lru-cache-1.png)
 ### Project Status
 
 ##### beta!
