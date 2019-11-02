@@ -22,7 +22,7 @@ class CacheManger {
   }
   publish(msg) {
     // send message to queue
-    msg = JSON.stringify(Object.assign(msg, {id: PUBID}));
+    msg = JSON.stringify(msg);
     try {
       this.channel.sendToQueue(this.queue, Buffer.from(msg));
     }

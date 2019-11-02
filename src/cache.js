@@ -63,31 +63,8 @@ class Cache extends CacheManger {
     this.tail = null;
   }
 
-  toArray() {
-    const arr = [];
-    let node = this.head;
-    while (node) {
-      arr.push({
-        key: node.getKey(),
-        value: node.getValue()
-      });
-      node = node.next;
-    }
-    return arr;
-  }
-
   has(key) {
     return !!this.hashMap[key];
-  }
-
-  forEach(callback) {
-    let node = this.head;
-    let i = 0;
-    while (node) {
-      callback.apply(this, [node.getKey(), node.getValue(), i]);
-      i++;
-      node = node.next;
-    }
   }
 }
 
