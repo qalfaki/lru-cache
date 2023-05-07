@@ -24,7 +24,7 @@
   "author": "Qusai Alfaki <qusai.alfaki@gmail.com> (http://qalfaki.github.io/q)",
   "license": "ISC",
   "dependencies": {
-    "amqplib": "^0.5.5",
+    "amqplib": "^0.10.3",
     "dev": "^0.1.3",
     "jasmine": "^3.5.0"
   },
